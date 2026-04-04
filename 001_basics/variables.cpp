@@ -86,4 +86,14 @@ int main() {
     bool isReady = true;
 
     return 0;
+
+    // initialization
+    int width {5}; // defines variable width and initialize with intiial value 5 
+
+    // types of initialization
+    int a; // default (no initializer)
+
+    //Traditional initialization forms:
+    int b = 5; // copy-initialization (set it to whatever is after the equals sign)
+    return 0;
 }
