@@ -1,0 +1,304 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+#app{display:grid;grid-template-columns:178px 1fr 1fr;height:680px;border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);overflow:hidden;background:var(--color-background-primary);}
+#sb{background:var(--color-background-secondary);border-right:0.5px solid var(--color-border-tertiary);display:flex;flex-direction:column;overflow:hidden;}
+#sb-hd{padding:12px 14px 8px;}
+.sb-lbl{font-size:10px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--color-text-tertiary);margin-bottom:3px;}
+.sb-ttl{font-size:13px;font-weight:500;color:var(--color-text-primary);font-family:var(--font-mono);}
+#sb-bar{height:2px;background:var(--color-border-tertiary);margin:8px 14px 0;border-radius:2px;}
+#sb-fill{height:100%;background:#639922;border-radius:2px;transition:width .4s;}
+#sb-lbl{font-size:10px;color:var(--color-text-tertiary);padding:4px 14px 6px;}
+#tlist{flex:1;overflow-y:auto;padding:4px 0;}
+.ti{display:flex;align-items:flex-start;gap:7px;padding:6px 12px 6px 14px;cursor:pointer;font-size:11.5px;color:var(--color-text-secondary);border-left:2px solid transparent;line-height:1.35;transition:background .1s;}
+.ti:hover{background:rgba(55,138,221,.07);color:var(--color-text-primary);}
+.ti.act{border-left-color:#378ADD;color:var(--color-text-primary);font-weight:500;}
+.ti .ic{font-size:9px;min-width:12px;margin-top:2px;text-align:center;flex-shrink:0;}
+.ti.ok .ic{color:#639922;}
+.ti.act .ic{color:#378ADD;}
+#cp{border-right:0.5px solid var(--color-border-tertiary);display:flex;flex-direction:column;overflow:hidden;}
+#cp-hd{padding:9px 14px;border-bottom:0.5px solid var(--color-border-tertiary);display:flex;align-items:center;justify-content:space-between;flex-shrink:0;gap:8px;}
+.tabs{display:flex;gap:3px;}
+.tb{font-size:11px;padding:3px 10px;border-radius:20px;border:0.5px solid var(--color-border-secondary);background:transparent;color:var(--color-text-secondary);cursor:pointer;}
+.tb.on{background:var(--color-background-info);color:var(--color-text-info);border-color:transparent;}
+.tb:disabled{opacity:.35;cursor:not-allowed;}
+#dbadge{font-size:10px;padding:2px 8px;border-radius:10px;font-weight:500;display:none;white-space:nowrap;}
+.d1{background:var(--color-background-success);color:var(--color-text-success);}
+.d2{background:var(--color-background-warning);color:var(--color-text-warning);}
+.d3{background:var(--color-background-danger);color:var(--color-text-danger);}
+#cbody{flex:1;overflow-y:auto;padding:14px 15px;}
+.lb{font-size:13px;line-height:1.7;color:var(--color-text-primary);}
+.lb h3{font-size:13px;font-weight:500;margin:13px 0 5px;color:var(--color-text-primary);}
+.lb h2{font-size:14px;font-weight:500;margin:14px 0 6px;}
+.lb p{margin-bottom:9px;}
+.cb{background:var(--color-background-tertiary);border:0.5px solid var(--color-border-tertiary);border-radius:6px;padding:11px 12px;margin:9px 0;font-family:var(--font-mono);font-size:11.5px;line-height:1.65;overflow-x:auto;white-space:pre;}
+.lb code{font-family:var(--font-mono);font-size:11px;background:var(--color-background-secondary);padding:1px 4px;border-radius:3px;color:var(--color-text-primary);}
+.lb strong{font-weight:500;}
+.kcs{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:13px;}
+.kc{font-size:11px;padding:2px 9px;border-radius:12px;background:var(--color-background-info);color:var(--color-text-info);font-family:var(--font-mono);}
+.go-btn{display:inline-flex;align-items:center;gap:5px;margin-top:14px;padding:8px 16px;background:#185FA5;color:#fff;border:none;border-radius:8px;font-size:12px;font-weight:500;cursor:pointer;}
+.go-btn:hover{background:#378ADD;}
+.ex-ttl{font-size:13px;font-weight:500;color:var(--color-text-primary);margin-bottom:7px;}
+.ex-desc{font-size:12.5px;line-height:1.6;color:var(--color-text-secondary);margin-bottom:10px;}
+.reqs{list-style:none;padding:0;margin:0 0 10px;}
+.reqs li{display:flex;align-items:flex-start;gap:7px;padding:5px 0;font-size:12px;color:var(--color-text-secondary);border-bottom:0.5px solid var(--color-border-tertiary);}
+.reqs li:last-child{border:none;}
+.rb{color:#378ADD;font-size:10px;margin-top:2px;flex-shrink:0;}
+#rp{display:flex;flex-direction:column;overflow:hidden;}
+#rp-hd{padding:9px 14px;border-bottom:0.5px solid var(--color-border-tertiary);display:flex;align-items:center;justify-content:space-between;flex-shrink:0;}
+.rp-ttl{font-size:11.5px;font-weight:500;color:var(--color-text-tertiary);font-family:var(--font-mono);}
+#chk{font-size:11.5px;padding:5px 13px;border-radius:6px;border:none;background:#185FA5;color:#fff;cursor:pointer;font-weight:500;}
+#chk:hover{background:#378ADD;}
+#chk:disabled{background:var(--color-background-secondary);cursor:not-allowed;color:var(--color-text-tertiary);border:0.5px solid var(--color-border-tertiary);}
+#ew{flex:1;overflow:hidden;position:relative;}
+#ced{width:100%;height:100%;resize:none;border:none;outline:none;font-family:var(--font-mono);font-size:12px;line-height:1.65;padding:13px;background:var(--color-background-tertiary);color:var(--color-text-primary);tab-size:4;}
+#fba{border-top:0.5px solid var(--color-border-tertiary);padding:10px 13px;overflow-y:auto;max-height:190px;flex-shrink:0;display:none;}
+.fb-ok{background:var(--color-background-success);border:0.5px solid var(--color-border-success);border-radius:8px;padding:10px 12px;}
+.fb-no{background:var(--color-background-danger);border:0.5px solid var(--color-border-danger);border-radius:8px;padding:10px 12px;}
+.fb-ttl{font-size:12px;font-weight:500;margin-bottom:4px;}
+.c-ok{color:var(--color-text-success);}
+.c-no{color:var(--color-text-danger);}
+.fb-bd{font-size:12px;color:var(--color-text-secondary);line-height:1.5;}
+.fb-hint{margin-top:7px;font-size:11px;color:var(--color-text-tertiary);font-style:italic;border-top:0.5px solid var(--color-border-tertiary);padding-top:6px;}
+.nxt{display:inline-flex;align-items:center;gap:5px;margin-top:9px;padding:6px 13px;background:#27500A;color:#C0DD97;border:none;border-radius:8px;font-size:11.5px;font-weight:500;cursor:pointer;}
+.nxt:hover{background:#3B6D11;}
+.retry{display:inline-flex;align-items:center;gap:5px;margin-top:7px;padding:5px 12px;border:0.5px solid var(--color-border-secondary);background:transparent;color:var(--color-text-secondary);border-radius:8px;font-size:11px;cursor:pointer;}
+.retry:hover{background:var(--color-background-secondary);}
+.idle{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;text-align:center;padding:24px;color:var(--color-text-tertiary);}
+.idle-ic{font-size:28px;margin-bottom:10px;opacity:.35;}
+.idle-tx{font-size:12px;line-height:1.65;}
+.spin{display:inline-block;width:13px;height:13px;border:2px solid var(--color-border-tertiary);border-top-color:#378ADD;border-radius:50%;animation:sp .6s linear infinite;vertical-align:middle;margin-right:6px;}
+@keyframes sp{to{transform:rotate(360deg)}}
+.ld{color:var(--color-text-tertiary);font-size:12.5px;padding:18px 0;}
+.err-box{background:var(--color-background-danger);border:0.5px solid var(--color-border-danger);border-radius:8px;padding:12px 14px;font-size:12px;color:var(--color-text-danger);line-height:1.5;}
+.err-box small{display:block;margin-top:6px;opacity:.7;font-size:10.5px;word-break:break-all;}
+</style>
+
+<div id="app">
+  <div id="sb">
+    <div id="sb-hd"><div class="sb-lbl">curriculum</div><div class="sb-ttl">C++ mastery</div></div>
+    <div id="sb-bar"><div id="sb-fill" style="width:0%"></div></div>
+    <div id="sb-lbl">0 / 17 topics</div>
+    <div id="tlist"></div>
+  </div>
+  <div id="cp">
+    <div id="cp-hd">
+      <div class="tabs">
+        <button class="tb on" id="tl" onclick="swTab('lesson')">lesson</button>
+        <button class="tb" id="te" onclick="swTab('exercise')" disabled>exercise</button>
+      </div>
+      <span id="dbadge"></span>
+    </div>
+    <div id="cbody"><div class="idle"><div class="idle-ic">{ }</div><div class="idle-tx">select a topic from the left<br>to load your lesson</div></div></div>
+  </div>
+  <div id="rp">
+    <div id="rp-hd"><span class="rp-ttl">solution.cpp</span><button id="chk" disabled onclick="checkCode()">check code</button></div>
+    <div id="ew"><textarea id="ced" spellcheck="false" placeholder="// your code will appear here&#10;// after you start the exercise"></textarea></div>
+    <div id="fba"></div>
+  </div>
+</div>
+
+<script>
+var TOPICS=['Intro and C++ Primer','C++ Primer','If-Else and Switch','Random Numbers, File IO, and Functions','Arrays and C-strings','Pointers','References and Overloaded Functions','Classes and Objects','Stubs, Classes, and Objects','Constructors and Vectors','Dynamic Memory','Linked Lists','Enums and Overloaded Operators','Inheritance','Inheritance (continued)','Polymorphism','Polymorphism (continued)'];
+var DIFF=[1,1,1,1,1,2,2,2,2,2,3,3,3,3,3,3,3];
+var DL=['','beginner','intermediate','advanced'];
+var DC=['','d1','d2','d3'];
+
+var EX=[
+  'Declare int, double, char, bool, and string variables. Compute sum, product, and average of the numbers. Use the char in a conditional. Print all variables with descriptive labels using cout.',
+  'Build a unit converter with a menu: (1) Celsius to Fahrenheit, (2) miles to km, (3) pounds to kg. Use cin, a while loop to keep going, and format output to 2 decimal places.',
+  'Read a score 0-100 with cin. Use if-else chains for letter grade (A/B/C/D/F). Use a switch on the grade letter to print a custom motivational message. Validate input (reject <0 or >100).',
+  'Number guessing game: generate a secret random int 1-100, loop until the user guesses it with higher/lower feedback, count guesses. Then write the result (secret number, guesses taken) to a results.txt file.',
+  'Write 4 functions: fillArray(arr,n) from cin, findStats(arr,n) printing min/max/average, reverseArray(arr,n) in-place, bubbleSort(arr,n). Call all from main on a 10-element array and print results after each step.',
+  'Demonstrate pointers in 4 ways: (1) pointer to int, show address vs value; (2) swap(int*,int*) using pointers, verify it works; (3) use pointer arithmetic to traverse an int array; (4) use new/delete to allocate and free an int on the heap.',
+  'Write 3 overloaded functions named "process": process(int,int) returns their GCD, process(double,double) returns geometric mean, process(string) returns the string reversed. Also write doubleIt(int &n) that doubles n in-place via reference.',
+  'Build a BankAccount class with private: balance (double), owner (string), accountNum (int). Implement: deposit, withdraw (reject if overdraft), getBalance, displayInfo, and transfer(BankAccount&,double). Demo with 2 accounts in main.',
+  'Build a Student class: name, id, array of up to 10 grades. Methods: addGrade(double), computeGPA(), printTranscript() showing each grade and GPA, isHonorRoll() returns true if GPA>=3.5. Test with 3 students with different grade sets.',
+  'Create a Song struct (title, artist, durationSeconds). Build a Playlist class with vector<Song>. Methods: addSong, removeSongByTitle, totalDuration (formatted mm:ss), shuffleOrder, findByArtist, printAll. Use a constructor with playlist name.',
+  'Implement a DynamicArray class wrapping a heap-allocated int[]. Rule of Three: constructor(size), copy constructor (deep copy), destructor. Methods: push(val), pop(), get(i), resize(newSize), print. Prove copy constructor does deep copy, not shallow.',
+  'Implement a full singly linked list from scratch. Node struct with int data and Node* next. LinkedList class with: insertFront, insertBack, insertAt(pos), deleteByValue, search(val)->bool, reverse() in-place, printForward, size(). Test every single method.',
+  'Build a Vector2D class {double x,y}. Overload: + (add), - (subtract), * (scalar), == (equality), !=, << (cout). Create enum class Direction {N,S,E,W,NE,NW,SE,SW} and function toVector2D(Direction) returning unit vectors. Demo all operators.',
+  'Animal hierarchy: base Animal(string name,int age) with virtual void makeSound() and virtual void describe(). Derive Dog(string breed) with fetch(), Cat(bool indoor) with purr(), Bird(double wingspan) with fly(). Override makeSound and describe in each. Store 5 animals in Animal* array, call makeSound on each.',
+  'Abstract base Shape with pure virtual double area(), double perimeter(), string getType(). Derive Circle(r), Rectangle(w,h), Triangle(a,b,c) with full implementations. Write void printShapeReport(Shape*). Store shapes in vector<Shape*>, print report for each, print total area.',
+  'Abstract base Media with pure virtual: void play(), void stop(), string getTitle(), int getDuration(). Derive: AudioTrack(title,artist,seconds), VideoFile(title,director,seconds), Podcast(title,host,episodeNum,seconds). Build MediaLibrary with vector<Media*>: add, playAll (shows each playing), searchByTitle, totalDuration. Demo with 2 of each type.',
+  'Abstract Drawable: pure virtual void draw(), string getType(), Drawable* clone(). Implement Circle(x,y,r), Rectangle(x,y,w,h), Triangle(x1,y1,x2,y2,x3,y3). Build Canvas with vector<Drawable*>: addShape, drawAll, removeByType, deep-copy constructor (calls clone() on each). Prove deep copy works by modifying original and showing copy is unchanged.'
+];
+
+var ST={topic:null,tab:'lesson',data:null,done:new Set(),busy:false,attempts:0};
+
+function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+
+function parseResp(txt){
+  if(!txt||typeof txt!=='string') throw new Error('Empty response');
+  var s=txt.indexOf('{'), e=txt.lastIndexOf('}');
+  if(s<0||e<=s) throw new Error('No JSON object found');
+  var chunk=txt.slice(s,e+1);
+  try{return JSON.parse(chunk);}
+  catch(ex){
+    chunk=chunk.replace(/[\x00-\x1F\x7F]/g,function(c){
+      if(c==='\n') return '\\n';
+      if(c==='\r') return '\\r';
+      if(c==='\t') return '\\t';
+      return '';
+    });
+    return JSON.parse(chunk);
+  }
+}
+
+function callAPI(content){
+  return fetch('https://api.anthropic.com/v1/messages',{
+    method:'POST',
+    headers:{'Content-Type':'application/json','anthropic-dangerous-direct-browser-access':'true'},
+    body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,messages:[{role:'user',content:content}]})
+  }).then(function(r){
+    return r.json().then(function(d){
+      if(!r.ok) throw new Error('HTTP '+r.status+': '+(d.error&&d.error.message||JSON.stringify(d)));
+      if(!d.content||!d.content[0]) throw new Error('Unexpected API response shape');
+      return d.content[0].text;
+    });
+  });
+}
+
+function mdRender(txt){
+  if(!txt) return '';
+  var parts=txt.split(/\[CODE\]([\s\S]*?)\[\/CODE\]/g), out='';
+  for(var i=0;i<parts.length;i++){
+    if(i%2===1){out+='<div class="cb">'+esc(parts[i])+'</div>';}
+    else{
+      var h=esc(parts[i]);
+      h=h.replace(/^### (.+)$/gm,'<h3>$1</h3>');
+      h=h.replace(/^## (.+)$/gm,'<h2>$1</h2>');
+      h=h.replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>');
+      h=h.replace(/`([^`]+)`/g,'<code>$1</code>');
+      h=h.replace(/\n\n/g,'</p><p>');
+      h=h.replace(/\n/g,'<br>');
+      out+='<p>'+h+'</p>';
+    }
+  }
+  return out;
+}
+
+function renderTopics(){
+  var list=document.getElementById('tlist');
+  list.innerHTML=TOPICS.map(function(t,i){
+    var d=ST.done.has(i),a=ST.topic===i;
+    return '<div class="ti'+(d?' ok':'')+(a?' act':'')+'" onclick="selTopic('+i+')"><span class="ic">'+(d?'✓':a?'▶':'○')+'</span><span>'+esc(t)+'</span></div>';
+  }).join('');
+  var p=Math.round(ST.done.size/TOPICS.length*100);
+  document.getElementById('sb-fill').style.width=p+'%';
+  document.getElementById('sb-lbl').textContent=ST.done.size+' / '+TOPICS.length+' topics';
+}
+
+function swTab(tab){
+  ST.tab=tab;
+  document.getElementById('tl').className='tb'+(tab==='lesson'?' on':'');
+  document.getElementById('te').className='tb'+(tab==='exercise'?' on':'');
+  if(tab==='lesson'&&ST.data) showLesson();
+  if(tab==='exercise'&&ST.data) showExercise();
+}
+
+function showLesson(){
+  var d=ST.data;
+  var kcs=(d.keyConcepts||[]).map(function(k){return '<span class="kc">'+esc(k)+'</span>';}).join('');
+  document.getElementById('cbody').innerHTML='<div class="lb"><div class="kcs">'+kcs+'</div>'+mdRender(d.lesson)+'<button class="go-btn" onclick="startEx()">start the exercise →</button></div>';
+}
+
+function showExercise(){
+  var ex=ST.data&&ST.data.exercise||{};
+  var reqs=(ex.requirements||[]).map(function(r){return '<li><span class="rb">→</span>'+esc(r)+'</li>';}).join('');
+  document.getElementById('cbody').innerHTML='<div class="lb"><div class="ex-ttl">'+esc(ex.title||'Exercise')+'</div><div class="ex-desc">'+esc(ex.description||'')+'</div>'+(reqs?'<ul class="reqs">'+reqs+'</ul>':'')+'<p style="font-size:11px;color:var(--color-text-tertiary);margin-top:6px;">write your solution in the editor on the right, then click check code</p></div>';
+}
+
+function startEx(){
+  document.getElementById('te').disabled=false;
+  swTab('exercise');
+  var ex=ST.data&&ST.data.exercise||{};
+  if(ex.starterCode) document.getElementById('ced').value=ex.starterCode;
+  document.getElementById('chk').disabled=false;
+  document.getElementById('fba').style.display='none';
+  ST.attempts=0;
+}
+
+function selTopic(idx){
+  if(ST.busy) return;
+  ST.topic=idx; ST.data=null; ST.tab='lesson'; ST.busy=true; ST.attempts=0;
+  renderTopics();
+  var b=document.getElementById('dbadge');
+  b.style.display='inline-block'; b.className=DC[DIFF[idx]]; b.textContent=DL[DIFF[idx]];
+  document.getElementById('tl').className='tb on';
+  document.getElementById('te').className='tb';
+  document.getElementById('te').disabled=true;
+  document.getElementById('chk').disabled=true;
+  document.getElementById('ced').value='';
+  document.getElementById('fba').style.display='none';
+  document.getElementById('cbody').innerHTML='<div class="ld"><span class="spin"></span>generating lesson...</div>';
+
+  var diff=DIFF[idx], spec=EX[idx];
+  var prompt='You are a world-class C++ instructor. Generate a concise but deep lesson.\n\nTopic: "'+TOPICS[idx]+'"\nDifficulty: '+diff+'/3\n\nIMPORTANT: Respond with ONLY a raw JSON object. No markdown. No backticks. No text before or after. The JSON must be valid.\n\nJSON structure:\n{"lesson":"text here","keyConcepts":["c1","c2","c3"],"exercise":{"title":"name","description":"what to build","requirements":["req1","req2","req3"],"starterCode":"#include <iostream>\\nusing namespace std;\\n\\nint main() {\\n    // TODO\\n    return 0;\\n}","whatToLookFor":"what correct code must do"}}\n\nFor the lesson: use [CODE] and [/CODE] tags around code blocks. Use ### for headers. Use ** for bold. Use \\n\\n for paragraph breaks. Keep lesson under 300 words but make it deep — explain WHY not just HOW. Include one complete working code example.\n\nFor the exercise specifically, the student must: '+spec+'\n\nMake the starterCode include the necessary #include statements, using namespace std, and helpful TODO comments that guide without giving away the answer.\nThe requirements array must list 4-6 specific testable things the code must do.\nwhatToLookFor must describe exactly what correct output/behavior looks like.';
+
+  callAPI(prompt).then(function(txt){
+    try{
+      ST.data=parseResp(txt);
+      ST.busy=false;
+      showLesson();
+    } catch(e){
+      ST.busy=false;
+      document.getElementById('cbody').innerHTML='<div class="err-box">Failed to parse lesson. Try clicking the topic again.<small>'+esc(e.message)+'</small></div>';
+    }
+  }).catch(function(e){
+    ST.busy=false;
+    document.getElementById('cbody').innerHTML='<div class="err-box">API error — check your network connection and try again.<small>'+esc(e.message)+'</small></div>';
+  });
+}
+
+function checkCode(){
+  var code=document.getElementById('ced').value.trim();
+  if(!code||ST.busy) return;
+  ST.busy=true; ST.attempts++;
+  document.getElementById('chk').disabled=true;
+  document.getElementById('chk').textContent='reviewing...';
+  var fba=document.getElementById('fba');
+  fba.style.display='block';
+  fba.innerHTML='<div class="ld"><span class="spin"></span>reviewing your code...</div>';
+  var ex=(ST.data&&ST.data.exercise)||{};
+  var prompt='You are a C++ instructor reviewing student code.\n\nTopic: "'+TOPICS[ST.topic]+'"\nTask: '+JSON.stringify(ex.description||'')+'\nRequirements: '+JSON.stringify(ex.requirements||[])+'\nWhat correct solution must do: '+JSON.stringify(ex.whatToLookFor||'')+'\nStudent attempt number: '+ST.attempts+'\n\nStudent code:\n'+code+'\n\nRespond with ONLY a raw JSON object. No markdown. No backticks. No text before or after.\n\n{"passed":true,"score":85,"feedback":"specific feedback mentioning what they did right","hint":"","celebration":"Great work on X!"}\n\nor if failed:\n{"passed":false,"score":40,"feedback":"what they did wrong and what is missing","hint":"one specific actionable hint","celebration":""}\n\nBe encouraging. If core concept is implemented correctly, pass with score>=80 even if style is imperfect. Only fail if requirements are genuinely not met or code is fundamentally wrong.';
+  callAPI(prompt).then(function(txt){
+    try{
+      var r=parseResp(txt);
+      ST.busy=false;
+      document.getElementById('chk').textContent='check code';
+      document.getElementById('chk').disabled=false;
+      if(r.passed){
+        ST.done.add(ST.topic); renderTopics();
+        var nxt=ST.topic+1<TOPICS.length?ST.topic+1:-1;
+        fba.innerHTML='<div class="fb-ok"><div class="fb-ttl c-ok">passed'+(r.score?' · '+r.score+'/100':'')+'</div><div class="fb-bd">'+esc(r.celebration||r.feedback||'Great work!')+'</div>'+(nxt>=0?'<button class="nxt" onclick="selTopic('+nxt+')">next: '+esc(TOPICS[nxt])+' →</button>':'<p style="margin-top:8px;font-size:11px;color:var(--color-text-success);font-weight:500;">all 17 topics complete.</p>')+'</div>';
+      } else {
+        fba.innerHTML='<div class="fb-no"><div class="fb-ttl c-no">not quite</div><div class="fb-bd">'+esc(r.feedback||'Check your code and try again.')+'</div>'+(r.hint?'<div class="fb-hint">hint: '+esc(r.hint)+'</div>':'')+'</div><button class="retry" onclick="clearFB()">try again</button>';
+      }
+    } catch(e){
+      ST.busy=false;
+      document.getElementById('chk').textContent='check code';
+      document.getElementById('chk').disabled=false;
+      fba.innerHTML='<div class="err-box">Could not parse feedback. Please try again.<small>'+esc(e.message)+'</small></div><button class="retry" onclick="clearFB()">dismiss</button>';
+    }
+  }).catch(function(e){
+    ST.busy=false;
+    document.getElementById('chk').textContent='check code';
+    document.getElementById('chk').disabled=false;
+    fba.innerHTML='<div class="err-box">API error while checking code.<small>'+esc(e.message)+'</small></div><button class="retry" onclick="clearFB()">dismiss</button>';
+  });
+}
+
+function clearFB(){document.getElementById('fba').style.display='none';}
+
+document.getElementById('ced').addEventListener('keydown',function(e){
+  if(e.key==='Tab'){
+    e.preventDefault();
+    var t=e.target,s=t.selectionStart;
+    t.value=t.value.slice(0,s)+'    '+t.value.slice(t.selectionEnd);
+    t.selectionStart=t.selectionEnd=s+4;
+  }
+});
+
+renderTopics();
+</script>
