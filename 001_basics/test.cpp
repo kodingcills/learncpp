@@ -1,32 +1,25 @@
-#include <iostream> 
+#include <iostream>
 using namespace std;
-
 int main(){
-    int score = 87;
-    double gpa = 3.6;
-    if (score >=90) { 
-        cout << "A";
-    }else if (score >=80) { 
-        cout << "B";
-    }else if (score >=70){
-        cout << "C";
-    }else if (score  >=60){
-        cout << "D";
-    }else{
-        cout << "F";
+    for(int i = 2; i <= 20; i+=2){
+        cout << i;
     }
-
-    int year = 2;
-    switch(year){
-        case 2:
-        cout << "Sophomore";
-        case 3:
-        cout << "Junior";
-        case 4:
-        cout << "Senior";
-        default:
-        cout << "Unknown";
+    cout << endl;
+    int n = 1;
+    while (n < 1000){
+        n = n *2;
     }
-
-    cout << "Score: " << score << "\nGPA: " << gpa;
+    cout << n << endl;
+    int c = 5;
+    do{
+        cout << c << endl;
+        c--;
+    } while(c >= 1);
+    cout << "Liftoff!" << endl;
+    for(int i = 1; i <= 5; i++){
+        for(int j = 0; j < i; j++){
+            cout << "*";
+        }
+        cout << endl;
+    }
 }
