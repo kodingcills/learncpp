@@ -708,7 +708,7 @@ Instructions:
 3. Include a "Common Mistake" section with broken code examples.
 4. If this is a difficulty 2 or 3 topic, reference how it connects to previous concepts.
 5. Generate 3 progressive exercises: 1 (Warm-up), 2 (Build it), 3 (Challenge).
-6. Format lesson with ### headers, **bold**, and [CODE]tags[/CODE] for code blocks.
+6. Use [CODE] and [/CODE] tags around code blocks.
 
 Respond ONLY with a JSON object.
 Structure:
@@ -749,6 +749,8 @@ Structure:
 
 function mdRender(txt) {
     if (!txt) return '';
+    // Normalize triple backticks to [CODE] tags for uniform processing
+    txt = txt.replace(/```(?:cpp)?\n?([\s\S]*?)```/g, '[CODE]$1[/CODE]');
     const parts = txt.split(/\[CODE\]([\s\S]*?)\[\/CODE\]/g);
     let out = '';
     for (let i = 0; i < parts.length; i++) {
