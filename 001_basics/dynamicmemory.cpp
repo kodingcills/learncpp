@@ -60,4 +60,7 @@ int main() {
     cin >> size;
     int * arr = new int[size]; // correct
 
+    int * abc = new int(42);
+    
+
 }
