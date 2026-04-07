@@ -131,4 +131,21 @@ int main(){
      //*(&x) is the value kept in the location
      int num = 10;
      cout << "the vlaue of x is " << *(&x) << endl;
+
+     //nullity of pointers
+     /**
+      * when you first declare a pointer, it holds a random memory location like itns and doubles hold random values hwen created
+      * 
+      * pointers not iin use are set to a memory location NULL which is never used
+      */
+
+      int *ptr; // no value assigned yet, random memory address
+      *ptr = 42; // error because you're changing the actual memory address
+
+      int *ptr = nullptr; //Explicitly sets to nowhere
+      *ptr = 42; //ERROR but clean crash, nullptrs are never used, it's literally adddress 0. If you try to touch it, it changes
+
+      int x = 10; // settin variable
+      int *ptr = &x; // setting to a real valid memory address of the 10
+      *ptr =42; //now changing x to 42 valid
 }
