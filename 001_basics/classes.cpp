@@ -51,6 +51,7 @@ class Buffer{
  * data inside is called member varia bles
  * private are member variables only acccessibly by the classes' own methods
  * public is the interdace the outside world can use outside the scope
+* protected are the parent and derived (chuld) classes' situations
  */
 
 int main() {
