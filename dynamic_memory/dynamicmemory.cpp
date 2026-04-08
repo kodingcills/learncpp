@@ -11,6 +11,7 @@ int*safe() {
     int *x = new int(42); //x is a pointer to the memory address of new int 42, new int(42) returns the memory address of 42
     return x; // heap survives and the caller is responsible for deleting it, not deleted when the function returns 
 }
+
 int main() {
     /**
      * so far memory has been automatically maanged, allocated when a variable is declared, freed when it goes out of scope

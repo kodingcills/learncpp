@@ -13,6 +13,21 @@ class Rectangle{ // structs bundle data toether, classes bundle data and the fun
             height = h;
         }
 
+        /**
+         * INITIALIZATION LISTS, instea dof assigning in the cnstructor body, initialize directly
+         */
+        // Point(int i = 0; int j = 0) : m_x(i), m_y(j) {}
+
+        //const on ember functions
+        //all getters should be const, so the method does not modify the member variables
+        int GetWidth() const{
+            return width;
+        }
+
+        int GetHeight() const{
+            return height;
+        }
+
         // void setWidth(double w){ // member functions/methods
         //     width = w;
         // }

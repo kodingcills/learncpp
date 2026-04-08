@@ -9,7 +9,7 @@ class BankAccount{
             if(initialBalance < 0) { 
                 m_balance = 0;
             }else{
-                SetBalance(m_balance);
+                SetBalance(initialBalance);
             }
         }
         void SetOwner(string s) { 
@@ -25,19 +25,21 @@ class BankAccount{
         }
 
         void Deposit(double amount){
+            if(amount <= 0) return;   
             SetBalance(GetBalance() + amount);
         }
         bool Withdraw(double amount){
             if((m_balance-amount) <=0){
                 return false;
             }
+            m_balance -= amount;
             return true;
         }
 
         void Print(){
             cout << "Owner: " << m_owner << endl;
             cout << "Account Number: " << m_accountNum << endl;
-            cout << "Balance: " << endl;
+            cout << "Balance: " << m_balance << endl;
         }
 
         string GetOwner(){
