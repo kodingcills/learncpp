@@ -50,6 +50,8 @@ class Money{
  * . dot operator
  * .* pointer to a member
  * ?: ternary operator
+ * 
+ * scope resolution :: dot operator . pointer to a member .* and ternary operator ?: cannot be overrloaded because they're too critical to c++ for some reason idk
  */
 };
 
