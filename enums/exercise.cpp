@@ -10,24 +10,24 @@ class Student{
         Grade m_letterGrade;
     public:
         Student(string name, double gpa) : m_name(name), m_gpa(gpa){
-        string m_letterGrade = (gpa >= 3.5) ? "A" :
-               (gpa >= 2.5) ? "B" :
-               (gpa >= 1.5) ? "C" :
-               (gpa >= 1.0) ? "D" : "F";
-
+       m_letterGrade = (gpa >= 3.5) ? A :
+                (gpa >= 2.5) ? B :
+                (gpa >= 1.5) ? C :
+                (gpa >= 1.0) ? D : F;
         }
 
         bool operator>(const Student &s) const{
-            if(s.m_gpa > m_gpa){
-                return true;
-            }
-            return false;
+            return m_gpa > s.m_gpa;
         }
 
         friend bool operator==(const Student& s, const Student& a);
 
-        void Print() const{
-            cout << "NAme: " << m_name << " GPA: "  << m_gpa << " Grade: " << m_letterGrade;
+        void Print() const {
+            string letter = (m_gpa >= 3.5) ? "A" :
+                            (m_gpa >= 2.5) ? "B" :
+                            (m_gpa >= 1.5) ? "C" :
+                            (m_gpa >= 1.0) ? "D" : "F";
+            cout << "Name: " << m_name << " GPA: " << m_gpa << " Grade: " << letter << endl;
         }
 };
 bool operator==(const Student& s, const Student& a){
