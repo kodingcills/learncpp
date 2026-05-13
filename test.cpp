@@ -1,36 +1,39 @@
 #include <iostream>
-#include <string>
 using namespace std;
-
-void displayAgeStats(int ages[], int size);
-
 int main(){
-    const int SIZE = 6;
-    int a[SIZE] = {15,22,17,24,18,12};
-    displayAgeStats(a,SIZE);
-    return 0;
-}
-
-void displayAgeStats(int ages[], int size){
-    int youngest = ages[0];
-    int oldest = ages[0];
-    int a = 0;
-    int m = 0;
-    for(int i = 0; i < size; i ++){
-        if(ages[i] > oldest){
-            oldest = ages[i];
-        }else if (ages[i] < youngest){
-            youngest = ages[i];
-        }
-
-        if(ages[i] >=18){
-            a++;
-        }else{
-            m++;
-        }
+    int score;
+    double gpa;
+    cout << "Enter grade:" << endl;
+    char c;
+    cin >> score;
+    if (score >= 90){
+        gpa = 4.0;
+        c = 'A';
+        cout << c << endl;
+    } else if (score >= 80){
+        gpa = 3.0;
+        c = 'B';
+        cout << c << endl;
+    } else if (score >= 70){
+        gpa = 2.0;
+        c = 'C';
+        cout << c << endl;
+    } else{
+        gpa = 1.0;
+        c = 'D';
+        cout << c << endl;
     }
-    cout << "Youngest age: " << youngest << endl;
-    cout << "Oldest age: " << oldest << endl;
-    cout << "Adults: " << a << endl;
-    cout << "Minors: " << m << endl;
+    switch(c){
+        case 'A':
+            cout << "Star student! GPA is " << gpa << endl;
+        case 'B':
+            cout << "B! GPA is " << gpa << endl;
+        case 'C':
+            cout << "Meets requirements!GPA is " << gpa << endl;
+        case 'D':
+            cout << "Failed with a " << gpa << endl;
+        default:
+            cout << "Uh oh" << endl;
+    }
+    return 0;
 }
