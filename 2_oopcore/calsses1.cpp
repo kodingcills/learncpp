@@ -28,7 +28,7 @@ class Library{
             //deep copy
             m_books = new string[m_capacity];
             //deep copy every element individually with for loop
-            for(int i = 0; i < m_count; i++){
+            for(int i = 0; i < m_capacity; i++){
                 m_books[i] = other.m_books[i];
             }
         }
@@ -50,7 +50,7 @@ class Library{
 
             //step 4 deep copy
             m_books = new string[m_capacity];
-            for(int i = 0; i < m_count; i++){
+            for(int i = 0; i < m_capacity; i++){
                 m_books[i] = other.m_books[i];
             }
             //no setting to nullptr
