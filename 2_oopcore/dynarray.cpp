@@ -21,7 +21,7 @@ class DynArray{
             m_capacity = other.m_capacity;
             m_size = other.m_size;
 
-            delete[] m_data;
+            m_data = new int[m_capacity];
             for(int i = 0; i < m_size; i++){
                 m_data[i] = other.m_data[i];
             }
@@ -36,7 +36,7 @@ class DynArray{
 
             m_capacity = other.m_capacity;
             m_size = other.m_size;
-
+            m_data = new int[m_capacity];
             for(int i = 0; i < m_size; i++){
                 m_data[i] = other.m_data[i];
             }
@@ -46,9 +46,15 @@ class DynArray{
         void PushBack(int val){
             if(m_capacity==m_size){
                 m_capacity*=2;
+                int*temp = new int[m_capacity];
+                for(int i = 0; i < m_size; i++){
+                    temp[i] = m_data[i];
+                }
+                delete [] m_data;
+                m_data=temp;
             }
-            m_data[val] = val;
-            val++;
+            m_data[m_size] = val;
+            m_size++;
         }
 
         void PopBack(){
@@ -71,10 +77,15 @@ class DynArray{
         }
 
         int GetSize() const{return m_size;}
-        int getCapacity() const{return m_capacity;}
+        int GetCapacity() const{return m_capacity;}
         
-        int At(int index) const{return m_data[index];}
-
+        int At(int index) const {
+            if(index < 0 || index >= m_size){
+                cout << "Invalid index" << endl;
+                return -1;
+            }
+            return m_data[index];
+        }
         void Print() const{
             for(int i = 0; i <m_size; i++){
                 cout << i << " " << m_data[i] << endl;
@@ -91,7 +102,7 @@ int main(){
     a.PushBack(3);
     a.PushBack(3);
 
-    cout << a.GetSize() << " " << a.getCapacity() << endl;
+    cout << a.GetSize() << " " << a.GetCapacity() << endl;
     a.RemoveAt(1);
     a.Print();
     a.PopBack();
