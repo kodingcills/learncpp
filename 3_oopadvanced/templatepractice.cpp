@@ -22,6 +22,7 @@ class Stack{
     public:
         Stack(int capacity): m_capacity(capacity){
             m_data = new T[m_capacity];
+            m_top = 0;
         }
         ~Stack(){
             delete[] m_data;
@@ -39,11 +40,6 @@ class Stack{
         Stack& operator=(const Stack& other){
             if(this==&other){
                 return *this;
-            }
-
-            //delet first
-            for(int i = 0; i < m_top; i++){
-                delete m_data[i];
             }
             delete[] m_data;
             //then allocate
@@ -79,8 +75,7 @@ class Stack{
                 cout << "Empty" << endl;
                 return T();
             }
-            m_top--;
-            m_data = m_data[m_top];
+            m_top--; 
             return m_data[m_top];
         }
 
