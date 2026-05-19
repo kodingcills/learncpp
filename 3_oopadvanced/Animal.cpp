@@ -11,6 +11,9 @@ class Animal{
     public:
         Animal(string name, int age): m_name(name), m_age(age){}
         // need a virtual destructor no matter if its pure virtual or regular virtual
+        //virtual functions resolve to the actual object type at runtime. Clone() exploits that
+        //in animal, pure virtual every child must implement it
+        virtual Animal* Clone() const = 0;
         virtual void Speak() const = 0; 
         virtual void Print() const{
             cout << "Animal: " << m_name << " Age: " << m_age << endl;
@@ -27,6 +30,10 @@ class Dog : public Animal{
         string m_breed;
     public:
         Dog(string name, int age, string breed): Animal(name, age), m_breed(breed){}
+        //in dog, knows its a dog, returns new dog poin ter
+        virtual Animal* Clone() const{
+            return new Dog(*this);
+        }
         virtual void Speak() const{
             cout << m_name << " says: Woof!" << endl;
         }
@@ -42,6 +49,11 @@ class Cat : public Animal{
         bool m_isIndoor;
     public:
         Cat(string name, int age, bool isIndoor): Animal(name, age), m_isIndoor(isIndoor){}
+
+        //in cat, knows its a cat, returns new cat, calls cats copy ocnstructor
+        virtual Animal* Clone() const{
+            return new Cat(*this);
+        }
         virtual void Speak() const{
             cout << m_name << " says: Meow!" << endl;
         }
@@ -78,7 +90,7 @@ class Shelter{
 
             m_animals = new Animal*[m_capacity];
             for(int i = 0; i < other.m_count; i++){
-                m_animals[i] = other.m_animals[i];
+                m_animals[i] = other.m_animals[i]->Clone();
             }
         }
 
@@ -143,5 +155,5 @@ int main(){
     for(int i = 0; i < 100; i++){
         b.AddAnimal(new Dog("Dog", i, "adwdaww"));
     }
-    
+
 }
