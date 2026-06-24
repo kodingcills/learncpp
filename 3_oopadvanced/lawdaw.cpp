@@ -10,5 +10,5 @@ class LinkedList{
         Node* m_head;
         int m_size;
     public:
-        L
+        
 };
