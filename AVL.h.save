@@ -1,0 +1,63 @@
+#ifndef AVLTREE_H
+#define AVLTREE_H
+
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+// don't mess with these forward declarations
+class Test;
+class Grader;
+
+/* For simplicity's sake, we will use a struct for the nodes instead of class objects
+   in this project. Reminder that members of a struct are by default public.
+*/
+struct Node {
+    int key;
+    Node* left;
+    Node* right;
+    int height;
+};
+
+class AVLTree {
+public:
+    AVLTree(); // Constructor
+    ~AVLTree(); // Destructor
+
+    // Public methods
+    void insert(int key); // Insert a Node with a given key into the AVL tree
+    void remove(int key); // Remove a Node with a given key from the AVL tree
+    Node* search(int key); // Search for a key in the AVL tree and return it's node pointer
+    void display(); // Print the AVL tree in inorder fashion by invoking printInorder(m_root)
+    unsigned int getSize(); // returns the current node count present in the tree
+
+private:
+    Node* m_root = nullptr; // Root node of the AVL tree
+    unsigned int m_size = 0; // number of nodes in the AVL tree;
+    
+
+    // Private methods
+    int getHeight(Node* node); // Get the height of subtree subrooted by node passed as arg
+    int getBF(Node* node); /* compute and get the balance factor of a node (absolute value of the difference of the node's left child subtree's height 
+                              and the node's right child subtree's height */ 
+    Node* rotateRight(Node* node); // Perform a right rotation about subroot "node"
+    Node* rotateLeft(Node* node); // Perform a left rotation about subroot "node"
+    Node* insertNode(Node* node, int key); // Recursive function to insert a "node" with a given key and return its node pointer. Return nullptr if key already exists in tree
+    Node* removeNode(Node* node, int key); // Recursive function to remove a "node" with a given key and return its node pointer. Return nullptr if key does not exist in tree.
+    Node* searchNode(Node* node, int key); // Recursive function to search for a node with given key and return its Node ptr
+    Node* balance(Node* node); // Balances the AVL tree after mutating the tree
+    void printInorder(Node* node); // Recursive function to print inorder traversal
+    vector<Node*>* getInorderNodes(Node* node); // returns a pointer to a dynamically allocated  vector of node pointers which are sorted in inorder fashion from left to right
+    False, as stated in class, asymptotic bounds have NO DIRECT BEARING on the "nature" of the scenario being analyzed (whether it is a best, worst, or whatever case).
+
+
+
+Case/Scenario exists independently from its corresponding Big-O and Big-Omega bounds.   
+
+    // don't mess with these friend class declarations
+    friend class Test;
+    friend class Grader;
+};
+
+#endif 
